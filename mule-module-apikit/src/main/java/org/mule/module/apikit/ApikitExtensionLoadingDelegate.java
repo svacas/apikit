@@ -21,8 +21,10 @@ import org.mule.runtime.api.meta.model.declaration.fluent.ParameterGroupDeclarer
 import org.mule.runtime.api.meta.model.error.ErrorModel;
 import org.mule.runtime.api.meta.model.error.ErrorModelBuilder;
 import org.mule.runtime.extension.api.declaration.type.ExtensionsTypeLoaderFactory;
+import org.mule.runtime.extension.api.loader.ExtensionLoadingContext;
+import org.mule.runtime.extension.api.loader.ExtensionLoadingDelegate;
 
-public class ApikitExtensionDeclarer
+public class ApikitExtensionLoadingDelegate implements ExtensionLoadingDelegate
 {
     public static final String EXTENSION_NAME = "http";
     public static final String EXTENSION_DESCRIPTION = "Http Connector";
@@ -32,9 +34,10 @@ public class ApikitExtensionDeclarer
 
     protected final BaseTypeBuilder typeBuilder = BaseTypeBuilder.create(JAVA);
 
-    public ExtensionDeclarer generateDeclarer()
+    @Override
+    public void accept(ExtensionDeclarer extensionDeclarer, ExtensionLoadingContext extensionLoadingContext)
     {
-        ErrorModel muleAnyErrorType = ErrorModelBuilder.newError("ANY", "MULE").build();//TODO CHECK IF THIS ERROR TYPE HAS TO BE DECLARED AT EXTENSION LEVEL
+        ErrorModel muleAnyErrorType = ErrorModelBuilder.newError("ANY", "MULE").build();
         ErrorModel apikitAnyErrorType = ErrorModelBuilder.newError("ANY", "APIKIT").withParent(muleAnyErrorType).build();
         ErrorModel badRequestErrorModel = ErrorModelBuilder.newError("BAD_REQUEST", "APIKIT").withParent(apikitAnyErrorType).build();
         ErrorModel notAcceptableErrorModel = ErrorModelBuilder.newError("NOT_ACCEPTABLE", "APIKIT").withParent(apikitAnyErrorType).build();
@@ -42,7 +45,6 @@ public class ApikitExtensionDeclarer
         ErrorModel methodNotAllowedErrorModel = ErrorModelBuilder.newError("METHOD_NOT_ALLOWED", "APIKIT").withParent(apikitAnyErrorType).build();
         ErrorModel notFoundErrorModel = ErrorModelBuilder.newError("NOT_FOUND", "APIKIT").withParent(apikitAnyErrorType).build();
 
-        ExtensionDeclarer extensionDeclarer = new ExtensionDeclarer();
         extensionDeclarer.named(EXTENSION_NAME)
                 .describedAs(EXTENSION_DESCRIPTION)
                 .fromVendor(VENDOR)
@@ -86,6 +88,5 @@ public class ApikitExtensionDeclarer
         consoleDeclarer.withOutput().ofType(typeLoader.load(Object.class));
         consoleDeclarer.withErrorModel(notFoundErrorModel);
 
-        return extensionDeclarer;
     }
 }
