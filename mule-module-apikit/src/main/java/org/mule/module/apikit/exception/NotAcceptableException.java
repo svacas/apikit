@@ -21,4 +21,10 @@ public class NotAcceptableException extends MuleRestException {
     public NotAcceptableException(){
         super();
     }
+
+    @Override
+    public String getStringRepresentation()
+    {
+        return STRING_REPRESENTATION;
+    }
 }

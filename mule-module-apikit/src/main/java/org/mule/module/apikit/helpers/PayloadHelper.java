@@ -55,7 +55,7 @@ public class PayloadHelper {
       }
       catch (IOException e)
       {
-        throw ApikitErrorTypes.BAD_REQUEST.throwErrorType("Error processing request: " + e.getMessage());
+        throw ApikitErrorTypes.throwErrorTypeNew(new BadRequestException("Error processing request: " + e.getMessage()));
       }
     }
     else if (input instanceof String)
@@ -69,7 +69,7 @@ public class PayloadHelper {
       {
         errorMessage = "Don't know how to parse " + input.getClass().getName();
       }
-      throw ApikitErrorTypes.BAD_REQUEST.throwErrorType(errorMessage);
+      throw ApikitErrorTypes.throwErrorTypeNew(new BadRequestException(errorMessage));
 
     }
     return (String) input;
