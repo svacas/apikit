@@ -31,7 +31,7 @@ public class PayloadHelper {
       try {
         return IOUtils.toString(((CursorStreamProvider) input).openCursor());
       } catch (IOException e) {
-        throw ApikitErrorTypes.BAD_REQUEST.throwErrorType("Error processing request: " + e.getMessage());
+        throw ApikitErrorTypes.throwErrorTypeNew(new BadRequestException("Error processing request: " + e.getMessage()));
       }
     }
 
@@ -42,7 +42,7 @@ public class PayloadHelper {
       try {
         input = IOUtils.toString(rewindableInputStream);
       } catch (IOException e) {
-        throw ApikitErrorTypes.BAD_REQUEST.throwErrorType("Error processing request: " + e.getMessage());
+        throw ApikitErrorTypes.throwErrorTypeNew(new BadRequestException("Error processing request: " + e.getMessage()));
       }
       rewindableInputStream.rewind();
 
