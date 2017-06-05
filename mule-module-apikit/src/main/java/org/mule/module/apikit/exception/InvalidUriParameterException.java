@@ -8,7 +8,7 @@ package org.mule.module.apikit.exception;
 
 public class InvalidUriParameterException extends BadRequestException {
 
-  public static final String STRING_REPRESENTATION = "APIKIT:INVALID_URI_PARAMETER";
+  public static final String STRING_REPRESENTATION = "APIKIT:BAD_REQUEST";
 
   public InvalidUriParameterException(String message) {
     super(message);
