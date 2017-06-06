@@ -26,10 +26,10 @@ import org.mule.runtime.extension.api.loader.ExtensionLoadingDelegate;
 
 public class ApikitExtensionLoadingDelegate implements ExtensionLoadingDelegate
 {
-    public static final String EXTENSION_NAME = "http";
-    public static final String EXTENSION_DESCRIPTION = "Http Connector";
+    public static final String EXTENSION_NAME = "apikit";
+    public static final String EXTENSION_DESCRIPTION = "APIKit plugin";
     public static final String VENDOR = "Mulesoft";
-    public static final String VERSION = "1.0";
+    public static final String VERSION = "4.0.0";
     public static final MuleVersion MIN_MULE_VERSION = new MuleVersion("4.0");
 
     protected final BaseTypeBuilder typeBuilder = BaseTypeBuilder.create(JAVA);
