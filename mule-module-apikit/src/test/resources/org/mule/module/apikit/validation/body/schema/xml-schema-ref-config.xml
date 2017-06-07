@@ -19,6 +19,9 @@
             <http:response statusCode="#[variables.httpStatus default 200]">
                 <http:headers>#[variables.outboundHeaders default {}]</http:headers>
             </http:response>
+            <http:error-response statusCode="#[variables.httpStatus default 500]">
+                <http:headers>#[variables.outboundHeaders default {}]</http:headers>
+            </http:error-response>
         </http:listener>
         <apikit:router config-ref="config"/>
         <error-handler>
