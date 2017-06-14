@@ -29,6 +29,7 @@
             </http:error-response>
         </http:listener>
         <apikit:router config-ref="apikitConfig"/>
+        <logger level="INFO" message="post routing"/>
     </flow>
 
     <flow name="subflow">

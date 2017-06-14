@@ -35,14 +35,14 @@ public class EventHelper
         return payloadEncoding.orElse(Charset.defaultCharset());// TODO Should we get default charset from mule?
     }
 
-    public static Event regenerateEvent(Event event, ValidRequest validRequest) {
-        Event.Builder builder = Event.builder(event);
+    public static Event.Builder regenerateEvent(Message message, Event.Builder builder, ValidRequest validRequest) {
+        //Event.Builder builder = Event.builder(event);
 
-        Message.Builder messageBuilder = Message.builder(event.getMessage());
+        Message.Builder messageBuilder = Message.builder(message);
         messageBuilder.payload(validRequest.getBody().getPayload());
         messageBuilder.attributes(validRequest.getAttributes());
 
-        return builder.message(messageBuilder.build()).build();
+        return builder.message(messageBuilder.build());
     }
 
     public static Event regenerateEvent(Event event, HttpRequestAttributes newAttributes)
