@@ -6,7 +6,7 @@
  */
 package org.mule.module.apikit;
 
-import org.mule.extension.http.api.HttpRequestAttributes;
+import org.mule.module.apikit.attributes.ApikitRequestAttributes;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -23,7 +23,7 @@ public class UrlUtils
   private UrlUtils() {}
 
   //public static String getBaseSchemeHostPort(Event event) {
-  //  String host = ((HttpRequestAttributes) event.getMessage().getAttributes()).getHeaders().get("host");
+  //  String host = ((ApikitRequestAttributes) event.getMessage().getAttributes()).getHeaders().get("host");
   //  String chHost = System.getProperty("fullDomain");
   //  if (chHost != null) {
   //    host = chHost;
@@ -32,9 +32,9 @@ public class UrlUtils
   //}
   //
   //public static String getScheme(Message message) {
-  //  String scheme = ((HttpRequestAttributes) message.getAttributes()).getScheme();
+  //  String scheme = ((ApikitRequestAttributes) message.getAttributes()).getScheme();
   //  if (scheme == null) {
-  //    String endpoint = ((HttpRequestAttributes) message.getAttributes()).getRequestUri(); //TODO CHECK IF THIS IS THE CORRECT PROPERTY//.getInboundProperty("http.context.uri");
+  //    String endpoint = ((ApikitRequestAttributes) message.getAttributes()).getRequestUri(); //TODO CHECK IF THIS IS THE CORRECT PROPERTY//.getInboundProperty("http.context.uri");
   //    if (endpoint == null) {
   //      throw new ApikitRuntimeException("Cannot figure out the request scheme");
   //    }
@@ -60,7 +60,7 @@ public class UrlUtils
   //}
 
   //public static String getResourceRelativePath(Message message) {
-  //  String path = ((HttpRequestAttributes) message.getAttributes()).getRequestPath();
+  //  String path = ((ApikitRequestAttributes) message.getAttributes()).getRequestPath();
   //  //String basePath = getBasePath(message);
   //  //path = path.substring(basePath.length());
   //  if (!path.startsWith("/") && !path.isEmpty()) {
@@ -87,7 +87,7 @@ public class UrlUtils
     return character;
   }
 
-  public static String getRelativePath(HttpRequestAttributes attributes) {
+  public static String getRelativePath(ApikitRequestAttributes attributes) {
     String baseAndApiPath = attributes.getListenerPath();
     String requestPath = attributes.getRequestPath();
 
@@ -105,7 +105,7 @@ public class UrlUtils
     return relativePath;
   }
 
-  public static String  getListenerPath(HttpRequestAttributes attributes)
+  public static String  getListenerPath(ApikitRequestAttributes attributes)
   {
     String listenerPath =  attributes.getListenerPath();
     String requestPath = attributes.getRequestPath();
@@ -146,7 +146,7 @@ public class UrlUtils
   }
 
 
-  public static String getBasePath(HttpRequestAttributes attributes) {
+  public static String getBasePath(ApikitRequestAttributes attributes) {
     String baseAndApiPath = attributes.getListenerPath();
     String requestPath = attributes.getRequestPath();
     int character = getEndOfBasePathIndex(baseAndApiPath, requestPath);
@@ -154,7 +154,7 @@ public class UrlUtils
   }
   //
   //public static String getQueryString(Message message) {
-  //  String queryString = ((HttpRequestAttributes) message.getAttributes()).getQueryString();
+  //  String queryString = ((ApikitRequestAttributes) message.getAttributes()).getQueryString();
   //  return queryString == null ? "" : queryString;
   //}
 

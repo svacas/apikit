@@ -7,7 +7,7 @@
 package org.mule.module.apikit;
 
 import org.mule.extension.http.api.HttpHeaders;
-import org.mule.extension.http.api.HttpRequestAttributes;
+import org.mule.module.apikit.attributes.ApikitRequestAttributes;
 import org.mule.module.apikit.exception.NotFoundException;
 import org.mule.module.apikit.helpers.EventHelper;
 import org.mule.module.apikit.helpers.EventWrapper;
@@ -78,7 +78,7 @@ public class Console implements Processor, Initialisable, FlowConstructAware
         config = registry.getConfiguration(getConfigRef());
         EventWrapper eventWrapper = new EventWrapper(event, config.getOutboundHeadersMapName(), config.getHttpStatusVarName());
 
-        HttpRequestAttributes attributes = EventHelper.getHttpRequestAttributes(event);
+        ApikitRequestAttributes attributes = EventHelper.getApikitRequestAttributes(event);
 
         // Listener path MUST end with /*
         validateConsoleListenerPath(attributes.getListenerPath());
@@ -94,7 +94,7 @@ public class Console implements Processor, Initialisable, FlowConstructAware
         }
 
         // For getting RAML resources
-        String raml = getRamlResourceIfRequested(EventHelper.getHttpRequestAttributes(event), resourceRelativePath);
+        String raml = getRamlResourceIfRequested(EventHelper.getApikitRequestAttributes(event), resourceRelativePath);
         if (raml != null)
         {
             return eventWrapper.setPayload(raml, RamlHandler.APPLICATION_RAML).build();
@@ -168,7 +168,7 @@ public class Console implements Processor, Initialisable, FlowConstructAware
         return eventWrapper.build();
     }
 
-    private String getRamlResourceIfRequested(HttpRequestAttributes attributes, String resourceRelativePath)
+    private String getRamlResourceIfRequested(ApikitRequestAttributes attributes, String resourceRelativePath)
     {
         if (config.getRamlHandler().isRequestingRamlV1ForConsole(attributes))
         {

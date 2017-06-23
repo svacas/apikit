@@ -6,7 +6,7 @@
  */
 package org.mule.module.apikit;
 
-import org.mule.extension.http.api.HttpRequestAttributes;
+import org.mule.module.apikit.attributes.ApikitRequestAttributes;
 import org.mule.module.apikit.exception.NotFoundException;
 import org.mule.module.apikit.helpers.AttributesHelper;
 import org.mule.module.apikit.parser.ParserService;
@@ -144,7 +144,7 @@ public class RamlHandler
         }
     }
 
-    public boolean isRequestingRamlV1(HttpRequestAttributes messageAttributes)
+    public boolean isRequestingRamlV1(ApikitRequestAttributes messageAttributes)
     {
         String listenerPath = UrlUtils.getListenerPath(messageAttributes);// messageAttributes.getRequestPath();
         return (!isParserV2() &&
@@ -153,7 +153,7 @@ public class RamlHandler
                 APPLICATION_RAML.equals(AttributesHelper.getHeaderIgnoreCase(messageAttributes,"Accept")));
     }
 
-    public boolean isRequestingRamlV1ForConsole(HttpRequestAttributes messageAttributes)
+    public boolean isRequestingRamlV1ForConsole(ApikitRequestAttributes messageAttributes)
     {
         String listenerPath = UrlUtils.getListenerPath(messageAttributes);
         return (!isParserV2() &&
@@ -164,7 +164,7 @@ public class RamlHandler
                         || messageAttributes.getQueryString().equals(RAML_QUERY_STRING)));
     }
 
-    public boolean isRequestingRamlV2(HttpRequestAttributes messageAttributes)
+    public boolean isRequestingRamlV2(ApikitRequestAttributes messageAttributes)
     {
         String consolePath = UrlUtils.getListenerPath(messageAttributes);
         String resourcesFullPath = consolePath;

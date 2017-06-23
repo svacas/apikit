@@ -16,6 +16,7 @@
     "id":"maven",
     "attributes":{
       "exportedPackages":[
+        "org.mule.module.apikit.attributes",
         "org.mule.module.apikit.config",
         "org.mule.module.apikit.exception",
         "org.mule.module.apikit.injector",

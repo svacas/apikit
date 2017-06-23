@@ -6,7 +6,7 @@
  */
 package org.mule.module.apikit.validation;
 
-import org.mule.extension.http.api.HttpRequestAttributes;
+import org.mule.module.apikit.attributes.ApikitRequestAttributes;
 import org.mule.module.apikit.exception.MuleRestException;
 import org.mule.module.apikit.uri.ResolvedVariables;
 import org.mule.raml.interfaces.model.IResource;
@@ -14,7 +14,7 @@ import org.mule.runtime.core.api.DefaultMuleException;
 
 public class RequestValidator {
 
-  public static ValidRequest validate(ValidationConfig config, IResource resource, HttpRequestAttributes attributes,
+  public static ValidRequest validate(ValidationConfig config, IResource resource, ApikitRequestAttributes attributes,
                                       ResolvedVariables resolvedVariables, Object payload, String charset)
       throws DefaultMuleException, MuleRestException {
 

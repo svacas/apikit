@@ -6,18 +6,18 @@
  */
 package org.mule.module.apikit.validation;
 
-import org.mule.extension.http.api.HttpRequestAttributes;
+import org.mule.module.apikit.attributes.ApikitRequestAttributes;
 
 public class ValidRequest {
-  HttpRequestAttributes attributes;
+  ApikitRequestAttributes attributes;
   ValidBody body;
 
-  ValidRequest(HttpRequestAttributes attributes, ValidBody body) {
+  ValidRequest(ApikitRequestAttributes attributes, ValidBody body) {
     this.attributes = attributes;
     this.body = body;
   }
 
-  public HttpRequestAttributes getAttributes() {
+  public ApikitRequestAttributes getAttributes() {
     return attributes;
   }
 
@@ -31,10 +31,10 @@ public class ValidRequest {
 
   static public class ValidRequestBuilder {
 
-    HttpRequestAttributes attributes;
+    ApikitRequestAttributes attributes;
     ValidBody body;
 
-    public ValidRequestBuilder withAttributes(HttpRequestAttributes attributes) {
+    public ValidRequestBuilder withAttributes(ApikitRequestAttributes attributes) {
       this.attributes = attributes;
       return this;
     }

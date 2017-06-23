@@ -8,6 +8,7 @@ package org.mule.module.apikit.helpers;
 
 
 import org.mule.extension.http.api.HttpRequestAttributes;
+import org.mule.module.apikit.attributes.ApikitRequestAttributes;
 import org.mule.module.apikit.validation.ValidRequest;
 import org.mule.runtime.api.message.Message;
 import org.mule.runtime.core.api.Event;
@@ -41,9 +42,9 @@ public class EventHelper
         return builder.message(messageBuilder.build());
     }
 
-    public static HttpRequestAttributes getHttpRequestAttributes(Event event)
+    public static ApikitRequestAttributes getApikitRequestAttributes(Event event)
     {
-        return ((HttpRequestAttributes) event.getMessage().getAttributes().getValue());
+        return new ApikitRequestAttributes((HttpRequestAttributes) event.getMessage().getAttributes().getValue());
     }
 
 }

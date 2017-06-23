@@ -6,7 +6,7 @@
  */
 package org.mule.module.apikit.validation;
 
-import org.mule.extension.http.api.HttpRequestAttributes;
+import org.mule.module.apikit.attributes.ApikitRequestAttributes;
 import org.mule.module.apikit.ApikitErrorTypes;
 import org.mule.module.apikit.exception.BadRequestException;
 import org.mule.module.apikit.exception.UnsupportedMediaTypeException;
@@ -36,7 +36,7 @@ public class BodyValidator {
   protected final static Logger logger = LoggerFactory.getLogger(BodyValidator.class);
 
 
-  public static ValidBody validate(IAction action, HttpRequestAttributes attributes, Object payload,
+  public static ValidBody validate(IAction action, ApikitRequestAttributes attributes, Object payload,
                                 ValidationConfig config, String charset)
       throws BadRequestException {
 

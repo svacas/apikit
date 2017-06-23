@@ -6,7 +6,7 @@
  */
 package org.mule.module.apikit.validation;
 
-import org.mule.extension.http.api.HttpRequestAttributes;
+import org.mule.module.apikit.attributes.ApikitRequestAttributes;
 import org.mule.module.apikit.exception.MuleRestException;
 import org.mule.module.apikit.helpers.AttributesHelper;
 import org.mule.module.apikit.uri.ResolvedVariables;
@@ -19,7 +19,7 @@ import org.mule.runtime.http.api.domain.ParameterMap;
 
 public class AttributesValidator {
 
-  public static HttpRequestAttributes validateAndAddDefaults(HttpRequestAttributes attributes, IResource resource,
+  public static ApikitRequestAttributes validateAndAddDefaults(ApikitRequestAttributes attributes, IResource resource,
                                                              ResolvedVariables resolvedVariables)
       throws MuleRestException, DefaultMuleException {
 

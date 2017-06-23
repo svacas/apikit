@@ -9,6 +9,7 @@ package org.mule.module.apikit;
 import static org.mule.module.apikit.CharsetUtils.getEncoding;
 
 import org.mule.extension.http.api.HttpRequestAttributes;
+import org.mule.module.apikit.attributes.ApikitRequestAttributes;
 import org.mule.module.apikit.exception.BadRequestException;
 import org.mule.module.apikit.exception.MethodNotAllowedException;
 import org.mule.module.apikit.exception.MuleRestException;
@@ -24,6 +25,7 @@ import org.mule.raml.interfaces.model.IResource;
 import org.mule.runtime.api.exception.MuleException;
 import org.mule.runtime.api.lifecycle.Initialisable;
 import org.mule.runtime.api.lifecycle.InitialisationException;
+import org.mule.runtime.api.message.Message;
 import org.mule.runtime.core.DefaultEventContext;
 import org.mule.runtime.core.api.DefaultMuleException;
 import org.mule.runtime.core.api.Event;
@@ -73,7 +75,7 @@ public class Router implements  Processor, Initialisable, FlowConstructAware
 
         eventBuilder.addVariable(config.getOutboundHeadersMapName(), new HashMap<>());
 
-        HttpRequestAttributes attributes = ((HttpRequestAttributes)event.getMessage().getAttributes().getValue());
+        ApikitRequestAttributes attributes = EventHelper.getApikitRequestAttributes(event);
 
         String path = UrlUtils.getRelativePath(attributes);
         path = path.isEmpty() ? "/" : path;
@@ -122,7 +124,7 @@ public class Router implements  Processor, Initialisable, FlowConstructAware
         this.name = name;
     }
 
-    public Event.Builder validateRequest(Event event, Event.Builder eventbuilder, ValidationConfig config, IResource resource, HttpRequestAttributes attributes, ResolvedVariables resolvedVariables) throws DefaultMuleException, MuleRestException {
+    public Event.Builder validateRequest(Event event, Event.Builder eventbuilder, ValidationConfig config, IResource resource, ApikitRequestAttributes attributes, ResolvedVariables resolvedVariables) throws DefaultMuleException, MuleRestException {
 
         String charset = null;
         try {

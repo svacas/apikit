@@ -7,6 +7,7 @@
 package org.mule.module.apikit;
 
 import org.mule.extension.http.api.HttpRequestAttributes;
+import org.mule.module.apikit.attributes.ApikitRequestAttributes;
 import org.mule.module.apikit.helpers.AttributesHelper;
 import org.mule.module.apikit.helpers.EventHelper;
 import org.mule.runtime.api.message.Message;
@@ -184,7 +185,7 @@ public class CharsetUtils
     public static String getHeaderCharset(Message message, Logger logger)
     {
         String charset = null;
-        String contentType = AttributesHelper.getHeaderIgnoreCase(((HttpRequestAttributes) message.getAttributes().getValue()), "Content-Type");
+         String contentType = AttributesHelper.getHeaderIgnoreCase(new ApikitRequestAttributes((HttpRequestAttributes) message.getAttributes().getValue()), "Content-Type");
         if (contentType == null)
         {
             contentType = "application/xml";

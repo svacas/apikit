@@ -6,7 +6,7 @@
  */
 package org.mule.module.apikit.helpers;
 
-import org.mule.extension.http.api.HttpRequestAttributes;
+import org.mule.module.apikit.attributes.ApikitRequestAttributes;
 import org.mule.module.apikit.HeaderNames;
 import org.mule.runtime.http.api.domain.ParameterMap;
 
@@ -54,9 +54,9 @@ public class AttributesHelper
     return oldQueryString + newParam;
   }
 
-  public static HttpRequestAttributes replaceParams(HttpRequestAttributes attributes, ParameterMap headers, ParameterMap queryParams, String queryString, ParameterMap uriParams)
+  public static ApikitRequestAttributes replaceParams(ApikitRequestAttributes attributes, ParameterMap headers, ParameterMap queryParams, String queryString, ParameterMap uriParams)
   {
-    return new HttpRequestAttributes(headers, attributes.getListenerPath(), attributes.getRelativePath(),
+    return new ApikitRequestAttributes(headers, attributes.getListenerPath(), attributes.getRelativePath(),
                                      attributes.getVersion(), attributes.getScheme(),
                                      attributes.getMethod(), attributes.getRequestPath(),
                                      attributes.getRequestUri(), queryString,
@@ -66,7 +66,7 @@ public class AttributesHelper
 
   private static String ANY_RESPONSE_MEDIA_TYPE = "*/*";
 
-  public static String getHeaderIgnoreCase(HttpRequestAttributes attributes, String name)
+  public static String getHeaderIgnoreCase(ApikitRequestAttributes attributes, String name)
   {
     ParameterMap headers = attributes.getHeaders();
     return getParamIgnoreCase(headers, name);
@@ -84,7 +84,7 @@ public class AttributesHelper
     return null;
   }
 
-  public static String getMediaType(HttpRequestAttributes attributes)
+  public static String getMediaType(ApikitRequestAttributes attributes)
   {
     String contentType = getHeaderIgnoreCase(attributes, HeaderNames.CONTENT_TYPE);
     return contentType != null ? contentType.split(";")[0] : null;

@@ -9,7 +9,7 @@ package org.mule.module.apikit;
 import static org.mule.metadata.api.model.MetadataFormat.JAVA;
 import static org.mule.runtime.api.meta.Category.COMMUNITY;
 
-import org.mule.extension.http.api.HttpRequestAttributes;
+import org.mule.module.apikit.attributes.ApikitRequestAttributes;
 import org.mule.metadata.api.ClassTypeLoader;
 import org.mule.metadata.api.builder.BaseTypeBuilder;
 import org.mule.runtime.api.meta.MuleVersion;
@@ -73,7 +73,7 @@ public class ApikitExtensionLoadingDelegate implements ExtensionLoadingDelegate
                 .withErrorModel(unsupportedMediaTypeErrorModel)
                 .withErrorModel(methodNotAllowedErrorModel)
                 .withErrorModel(notFoundErrorModel);
-        extensionDeclarer.withImportedType(new ImportedTypeModel("HTTP",typeLoader.load(HttpRequestAttributes.class)));
+        extensionDeclarer.withImportedType(new ImportedTypeModel("HTTP",typeLoader.load(ApikitRequestAttributes.class)));
 
         //config
         ConfigurationDeclarer apikitConfig = extensionDeclarer.withConfig("config")
@@ -88,7 +88,7 @@ public class ApikitExtensionLoadingDelegate implements ExtensionLoadingDelegate
 
         //router
         OperationDeclarer routerDeclarer = apikitConfig.withOperation("router");
-        routerDeclarer.withOutputAttributes().ofType(typeLoader.load(HttpRequestAttributes.class));
+        routerDeclarer.withOutputAttributes().ofType(typeLoader.load(ApikitRequestAttributes.class));
         routerDeclarer.withOutput().ofType(typeLoader.load(Object.class));
         routerDeclarer.withErrorModel(badRequestErrorModel)
             .withErrorModel(notAcceptableErrorModel)
@@ -98,7 +98,7 @@ public class ApikitExtensionLoadingDelegate implements ExtensionLoadingDelegate
 
         //console
         OperationDeclarer consoleDeclarer = apikitConfig.withOperation("console");
-        consoleDeclarer.withOutputAttributes().ofType(typeLoader.load(HttpRequestAttributes.class));
+        consoleDeclarer.withOutputAttributes().ofType(typeLoader.load(ApikitRequestAttributes.class));
         consoleDeclarer.withOutput().ofType(typeLoader.load(Object.class));
         consoleDeclarer.withErrorModel(notFoundErrorModel);
 
