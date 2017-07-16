@@ -36,12 +36,28 @@ public class ParserWrapperV2 implements ParserWrapper {
     if (ramlPath != null && new File(ramlPath).getParent() != null)
     {
       File ramlFile = new File(Thread.currentThread().getContextClassLoader().getResource(ramlPath).getFile());
-      this.resourceLoader = new org.raml.v2.api.loader.CompositeResourceLoader(new RootRamlResourceLoader(ramlFile.getParentFile()), new DefaultResourceLoader());
+      File parentFile = ramlFile.getParentFile();
+      verifyRamlParentDirectory(parentFile);
+      this.resourceLoader = new org.raml.v2.api.loader.CompositeResourceLoader(new RootRamlResourceLoader(parentFile), new DefaultResourceLoader());
     }
     else
     {
       this.resourceLoader = new DefaultResourceLoader();
     }
+  }
+
+  private void verifyRamlParentDirectory(File ramlFileParent)
+  {
+    if (!ramlFileParent.exists())
+    {
+      logger.error("Raml parent path does not exist: " + ramlFileParent);
+    }
+    else if (!ramlFileParent.isDirectory())
+    {
+      logger.error("Raml parent path is not a directory: " + ramlFileParent);
+    }
+
+    logger.info("Configuring RootRamlResourceLoader with parent file: " + ramlFileParent);
   }
 
   @Override

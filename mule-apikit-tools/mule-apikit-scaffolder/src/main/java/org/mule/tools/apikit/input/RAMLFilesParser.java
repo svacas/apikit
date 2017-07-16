@@ -74,6 +74,9 @@ public class RAMLFilesParser
                     IRaml raml;
                     if (ParserV2Utils.useParserV2(content))
                     {
+                        verifyRamlParentDirectory(ramlFileParent);
+
+
                         ResourceLoader resourceLoader = new CompositeResourceLoader( new RootRamlResourceLoader(ramlFileParent), new DefaultResourceLoader(), new FileResourceLoader(ramlFolderPath));
                         raml = ParserV2Utils.build(resourceLoader, ramlFile.getPath(), content);
                     }
@@ -103,12 +106,28 @@ public class RAMLFilesParser
         }
     }
 
+    private void verifyRamlParentDirectory(File ramlFileParent)
+    {
+        if (!ramlFileParent.exists())
+        {
+            log.error("Raml parent path does not exist: " + ramlFileParent);
+        }
+        else if (!ramlFileParent.isDirectory())
+        {
+            log.error("Raml parent path is not a directory: " + ramlFileParent);
+        }
+
+        log.info("Configuring RootRamlResourceLoader with parent file: " + ramlFileParent);
+    }
+
     private boolean isValidRaml(String fileName, String content, String filePath)
     {
         List<String> errors;
         if (ParserV2Utils.useParserV2(content))
         {
-            ResourceLoader resourceLoader = new CompositeResourceLoader( new RootRamlResourceLoader(new File(filePath)), new DefaultResourceLoader(), new FileResourceLoader(filePath));
+            File rootRamlParent = new File(filePath);
+            verifyRamlParentDirectory(rootRamlParent);
+            ResourceLoader resourceLoader = new CompositeResourceLoader(new RootRamlResourceLoader(rootRamlParent), new DefaultResourceLoader(), new FileResourceLoader(filePath));
             errors = ParserV2Utils.validate(resourceLoader, fileName, content);
         }
         else
